@@ -1,0 +1,3 @@
+# Wymagania
+
+## Symulacja środowiska ptaszników
