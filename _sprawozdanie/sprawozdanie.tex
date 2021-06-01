@@ -1,0 +1,112 @@
+\documentclass[a4paper,11pt,titlepage]{article}
+
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{url}
+\usepackage{unicode}
+\usepackage[polish]{babel}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{subfig}
+\usepackage{tabularx}
+\usepackage{courier}
+\DeclareUnicodeCharacter{200B}{{\hskip 0pt}}
+
+\definecolor{codeblue}{rgb}{0,0,0.6}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{code}{
+    backgroundcolor=\color{backcolour},
+    keywordstyle=\color{codeblue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=3pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=1,
+    basicstyle=\small
+}
+
+\lstset{style=code}
+
+\newcommand{\sectionbreak}{\clearpage}
+\author{Adam Talarczyk}
+\title{Symulacja Wieloagentowa}
+\frenchspacing
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+
+        \Huge
+        \textbf{WYDZIAŁ NAUK ŚCISŁYCH I TECHNICZNYCH}
+        
+        
+        \vspace{1.5cm}
+	   Symulacje Komputerowe
+        \LARGE
+        
+	\vspace{2cm}
+	
+	Sprawozdanie ``Symulacja Wieloagentowa''
+
+	\vspace{1cm}
+	Adam Talarczyk, Mateusz Wrzoł
+	
+	\vspace{5cm}
+        \vfill
+
+        \vspace{0.8cm}
+	\Large
+        Uniwersytet Śląski, Sosnowiec, 2021
+
+    \end{center}
+\end{titlepage}
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Zadanie 1}
+Należy opracować symulator dowolnego zjawiska lub procesu, wykorzystując model wieloagentowy.
+
+Symulator powinien być wyposażony następujące funkcje:
+\begin{itemize}
+\item wizualizacja stanu środowiska i agentów,
+\item wykres(y) z wynikami symulacji,
+\item interfejs użytkownika umożliwiający modyfikowanie parametrów modelu.
+\end{itemize}
+
+
+Sprawozdanie powinno zawierać:
+\begin{itemize}
+\item opis zaimplementowanego modelu wieloagentowego,
+\item kod źródłowy symulatora z komentarzami,
+\item prezentację interfejsu użytkownika z zrzutami ekranu,
+\item przykładowe wyniki symulacji,
+\item spis bibliografii (jeżeli była wykorzystana).
+\end{itemize}
+
+Dodatkowo poza sprawozdaniem proszę przesłać pik(i) z projektem symulatora (np. plik Netlogo).
+
+Ocena rozwiązania będzie uwzględniała:
+\begin{itemize}
+\item stopień skomplikowania zaproponowanego modelu i opracowanego symulatora,
+\item oryginalność rozwiązania (symulator nie może być prostą modyfikacją modeli symulacyjnych dostępnych w Netlogo lub innego gotowego oprogramowania),
+\item jakość przygotowanego sprawozdania.
+\end{itemize}
+
+Do rozwiązania zadania można wykorzystać środowisko Netlogo lub dowolne inne środowisko programistyczne.
+
+\end{document}
