@@ -1,4 +1,41 @@
+breed [spiders spider]
+spiders-own [ sex dc energy ]
 
+to setup
+  clear-all
+  set-default-shape spiders "spider"
+  create-spiders ilosc_samic [
+    set color pink
+    setxy random-xcor random-ycor
+    set energy random 10  ;start with a random amt. of energy
+    set sex 1
+    set dc 10
+  ]
+  create-spiders ilosc_samcow [
+    set color blue
+    setxy random-xcor random-ycor
+    set energy random 10  ;start with a random amt. of energy
+    set sex 0
+    set dc 10
+  ]
+  reset-ticks
+end
+
+to go
+  if not any? spiders [ stop ]
+  ;grow-grass-and-weeds
+  ask spiders
+  [ move ]
+  tick
+end
+
+to move  ;; rabbit procedure
+  rt random 50
+  lt random 50
+  fd 1
+  ;; moving takes some energy
+  set energy energy - 0.5
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 323
@@ -26,6 +63,170 @@ GRAPHICS-WINDOW
 1
 ticks
 30.0
+
+TEXTBOX
+5
+10
+155
+28
+Parametry startowe
+11
+0.0
+1
+
+SLIDER
+4
+30
+115
+63
+ilosc_samic
+ilosc_samic
+0
+20
+1.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+123
+31
+228
+64
+ilosc_samcow
+ilosc_samcow
+0
+20
+1.0
+1
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+7
+79
+157
+97
+Parametry rasy
+11
+0.0
+1
+
+SLIDER
+7
+102
+232
+135
+agresywnosc
+agresywnosc
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+7
+141
+233
+174
+kokon
+kokon
+0
+1000
+150.0
+1
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+9
+177
+159
+195
+Ilość nimf wyklutych z kokonu
+11
+0.0
+1
+
+TEXTBOX
+6
+243
+156
+261
+Warunki środowiskowe
+11
+0.0
+1
+
+SLIDER
+6
+259
+232
+292
+temperatura
+temperatura
+-30
+60
+25.0
+1
+1
+C
+HORIZONTAL
+
+SLIDER
+6
+296
+231
+329
+wilgotnosc
+wilgotnosc
+0
+100
+79.0
+1
+1
+%
+HORIZONTAL
+
+BUTTON
+8
+338
+85
+371
+setup
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+97
+339
+238
+372
+go
+go
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -271,6 +472,23 @@ Rectangle -1 true true 65 221 80 296
 Polygon -1 true true 195 285 210 285 210 240 240 210 195 210
 Polygon -7500403 true false 276 85 285 105 302 99 294 83
 Polygon -7500403 true false 219 85 210 105 193 99 201 83
+
+spider
+true
+0
+Polygon -7500403 true true 134 255 104 240 96 210 98 196 114 171 134 150 119 135 119 120 134 105 164 105 179 120 179 135 164 150 185 173 199 195 203 210 194 240 164 255
+Line -7500403 true 167 109 170 90
+Line -7500403 true 170 91 156 88
+Line -7500403 true 130 91 144 88
+Line -7500403 true 133 109 130 90
+Polygon -7500403 true true 167 117 207 102 216 71 227 27 227 72 212 117 167 132
+Polygon -7500403 true true 164 210 158 194 195 195 225 210 195 285 240 210 210 180 164 180
+Polygon -7500403 true true 136 210 142 194 105 195 75 210 105 285 60 210 90 180 136 180
+Polygon -7500403 true true 133 117 93 102 84 71 73 27 73 72 88 117 133 132
+Polygon -7500403 true true 163 140 214 129 234 114 255 74 242 126 216 143 164 152
+Polygon -7500403 true true 161 183 203 167 239 180 268 239 249 171 202 153 163 162
+Polygon -7500403 true true 137 140 86 129 66 114 45 74 58 126 84 143 136 152
+Polygon -7500403 true true 139 183 97 167 61 180 32 239 51 171 98 153 137 162
 
 square
 false
