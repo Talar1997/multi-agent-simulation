@@ -1,31 +1,50 @@
 breed [spiders spider]
-spiders-own [ sex dc energy ]
+spiders-own [ sex dc energy nestX nestY health ]
 
+breed [bugs bug]
+bugs-own [ energy-value energy ]
+;;setup
 to setup
   clear-all
   set-default-shape spiders "spider"
+  set-default-shape bugs "bug"
+  set-background
   create-spiders ilosc_samic [
     set color pink
     setxy random-xcor random-ycor
-    set energy random 10  ;start with a random amt. of energy
+    set energy 100
     set sex 1
     set dc 10
   ]
   create-spiders ilosc_samcow [
     set color blue
     setxy random-xcor random-ycor
-    set energy random 10  ;start with a random amt. of energy
+    set energy 100
     set sex 0
     set dc 10
   ]
   reset-ticks
 end
 
+to set-background
+  ask patches [
+    if random-float 1000 < 500 [ set pcolor 31 ]
+    ifelse random-float 1000 > 500 [ set pcolor 32 ]
+    [ set pcolor 33 ]
+  ]
+end
+
+
+;;Tarantulas behavior
 to go
   if not any? spiders [ stop ]
-  ;grow-grass-and-weeds
+  spawn-food
   ask spiders
-  [ move ]
+  [ move
+    death ]
+
+  ask bugs
+  [ move-food ]
   tick
 end
 
@@ -33,18 +52,76 @@ to move  ;; rabbit procedure
   rt random 50
   lt random 50
   fd 1
-  ;; moving takes some energy
-  set energy energy - 0.5
+  set energy energy - 0.1
+end
+
+to fight
+  ;aggresive?
+  ;chance to win: dc > dc
+end
+
+to eat
+end
+
+to molting
+  ;dc++ - depends on energy
+  ;take some ticks?
+end
+
+to create-nest
+end
+
+to is-eligible-for-cocoon
+  ;female, with some dc, after copulation, with nest
+  ; dc > dc_kopulacja
+  if sex = 1 [ create-cocoon ]
+end
+
+to create-cocoon
+  ;icon? new agent?
+end
+
+to death
+  if energy < 0 [ die ]
+  if health < 0 [ die ]
+  ;male and old?
+  ;random disease?
+end
+
+;;Food behavior
+;; need to be optimized
+to spawn-food
+  output-print food_rate
+  if random-float 10 < food_rate [
+    create-bugs 1 [
+      set color 3
+      set size 0.5
+      set energy-value random 10
+      set energy random 50
+      setxy random-xcor random-ycor
+    ]
+  ]
+end
+
+to move-food
+  rt random 50
+  lt random 50
+  fd 1
+  set energy energy - 0.1
+end
+
+to death-food
+  if energy < 0 [ die ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-323
-19
-926
-623
+274
+21
+732
+480
 -1
 -1
-18.03030303030303
+13.64
 1
 10
 1
@@ -54,10 +131,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--16
-16
--16
-16
+0
+32
+0
+32
 0
 0
 1
@@ -83,7 +160,7 @@ ilosc_samic
 ilosc_samic
 0
 20
-1.0
+4.0
 1
 1
 NIL
@@ -98,7 +175,7 @@ ilosc_samcow
 ilosc_samcow
 0
 20
-1.0
+5.0
 1
 1
 NIL
@@ -155,20 +232,20 @@ Ilość nimf wyklutych z kokonu
 1
 
 TEXTBOX
-6
-243
-156
-261
+10
+318
+160
+336
 Warunki środowiskowe
 11
 0.0
 1
 
 SLIDER
-6
-259
-232
-292
+10
+334
+236
+367
 temperatura
 temperatura
 -30
@@ -180,10 +257,10 @@ C
 HORIZONTAL
 
 SLIDER
-6
-296
-231
-329
+10
+371
+235
+404
 wilgotnosc
 wilgotnosc
 0
@@ -195,10 +272,10 @@ wilgotnosc
 HORIZONTAL
 
 BUTTON
-8
-338
-85
-371
+13
+451
+92
+484
 setup
 setup
 NIL
@@ -213,9 +290,9 @@ NIL
 
 BUTTON
 97
-339
+451
 238
-372
+484
 go
 go
 T
@@ -227,6 +304,62 @@ NIL
 NIL
 NIL
 1
+
+MONITOR
+145
+507
+205
+552
+Ptaszniki
+count spiders
+17
+1
+11
+
+SLIDER
+8
+196
+118
+229
+max_dc
+max_dc
+0
+10
+10.0
+1
+1
+dc
+HORIZONTAL
+
+SLIDER
+123
+196
+234
+229
+dc_kopulacja
+dc_kopulacja
+0
+10
+6.0
+1
+1
+dc
+HORIZONTAL
+
+SLIDER
+10
+409
+236
+442
+food_rate
+food_rate
+0.0
+10.0
+7.0
+0.5
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
