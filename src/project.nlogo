@@ -3,11 +3,15 @@ spiders-own [ sex dc energy nestX nestY health ]
 
 breed [bugs bug]
 bugs-own [ energy-value energy ]
+
+breed [targets target]
+
 ;;setup
 to setup
   clear-all
   set-default-shape spiders "spider"
   set-default-shape bugs "bug"
+  set-default-shape targets "egg"
   set-background
   create-spiders ilosc_samic [
     set color pink
@@ -41,6 +45,9 @@ to go
   spawn-food
   ask spiders
   [ move
+    eat
+    fight
+    reproduce
     death ]
 
   ask bugs
@@ -81,6 +88,17 @@ to create-cocoon
   ;icon? new agent?
 end
 
+to reproduce
+  let candidate one-of spiders-at 1 0
+  if candidate != nobody [
+    if (([sex] of candidate) != sex) [
+      hatch-targets 1 [ set color 6
+      set size 1]
+    ]
+  ]
+
+end
+
 to death
   if energy < 0 [ die ]
   if health < 0 [ die ]
@@ -93,12 +111,14 @@ end
 to spawn-food
   output-print food_rate
   if random-float 10 < food_rate [
-    create-bugs 1 [
-      set color 3
-      set size 0.5
-      set energy-value random 10
-      set energy random 50
-      setxy random-xcor random-ycor
+    if count bugs < max_food [
+      create-bugs 1 [
+        set color 3
+        set size 0.5
+        set energy-value random 10
+        set energy random 50
+        setxy random-xcor random-ycor
+      ]
     ]
   ]
 end
@@ -107,7 +127,7 @@ to move-food
   rt random 50
   lt random 50
   fd 1
-  set energy energy - 0.1
+  set energy energy - 10
 end
 
 to death-food
@@ -272,10 +292,10 @@ wilgotnosc
 HORIZONTAL
 
 BUTTON
-13
-451
-92
-484
+386
+487
+465
+520
 setup
 setup
 NIL
@@ -289,10 +309,10 @@ NIL
 1
 
 BUTTON
-97
-451
-238
-484
+470
+487
+611
+520
 go
 go
 T
@@ -306,10 +326,10 @@ NIL
 1
 
 MONITOR
-145
-507
-205
-552
+746
+29
+806
+74
 Ptaszniki
 count spiders
 17
@@ -328,7 +348,7 @@ max_dc
 10.0
 1
 1
-dc
+cm
 HORIZONTAL
 
 SLIDER
@@ -340,10 +360,10 @@ dc_kopulacja
 dc_kopulacja
 0
 10
-6.0
+2.0
 1
 1
-dc
+cm
 HORIZONTAL
 
 SLIDER
@@ -355,8 +375,44 @@ food_rate
 food_rate
 0.0
 10.0
-7.0
+10.0
 0.5
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+748
+10
+898
+28
+Monitor
+11
+0.0
+1
+
+MONITOR
+814
+29
+888
+74
+Pożywienie
+count bugs
+17
+1
+11
+
+SLIDER
+10
+447
+235
+480
+max_food
+max_food
+0
+1000
+100.0
+1
 1
 NIL
 HORIZONTAL
@@ -481,6 +537,13 @@ dot
 false
 0
 Circle -7500403 true true 90 90 120
+
+egg
+false
+0
+Circle -7500403 true true 96 76 108
+Circle -7500403 true true 72 104 156
+Polygon -7500403 true true 221 149 195 101 106 99 80 148
 
 face happy
 false
