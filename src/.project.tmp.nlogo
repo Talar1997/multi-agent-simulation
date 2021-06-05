@@ -13,20 +13,7 @@ to setup
   set-default-shape bugs "bug"
   set-default-shape targets "egg"
   set-background
-  create-spiders ilosc_samic [
-    set color pink
-    setxy random-xcor random-ycor
-    set energy 100
-    set sex 1
-    set dc 10
-  ]
-  create-spiders ilosc_samcow [
-    set color blue
-    setxy random-xcor random-ycor
-    set energy 100
-    set sex 0
-    set dc 10
-  ]
+  spawn-spiders
   reset-ticks
 end
 
@@ -38,6 +25,25 @@ to set-background
   ]
 end
 
+to spawn-spiders
+  create-spiders ilosc_samic [
+    set color pink
+    setxy random-xcor random-ycor
+    set energy 100
+    set health 100
+    set sex 1
+    set dc max_dc
+  ]
+  create-spiders ilosc_samcow [
+    set color blue
+    setxy random-xcor random-ycor
+    set energy 100
+    set health 100
+    set sex 0
+    set dc max_dc
+  ]
+end
+
 
 ;;Tarantulas behavior
 to go
@@ -45,28 +51,76 @@ to go
   spawn-food
   ask spiders
   [ move
-
+    eat
+    will-fight
     reproduce
     death ]
 
   ask bugs
-  [ move-food ]
+  [ move-food
+    death-food ]
   tick
 end
 
-to move  ;; rabbit procedure
+to move
   rt random 50
   lt random 50
   fd 1
-  set energy energy - 0.1
+  set energy energy - 0.5
+end
+
+;walka zależna od parametru agresywnosc
+;mają za mało DC do kopulacji - walczą
+;mają odpowiednio DC i są tej samej płci - walczą
+;są różnej płci ale samica jest głodna - walczą
+to will-fight
+  let candidate one-of spiders-at 1 0
+  if candidate != nobody [
+    if random 100 < agresywnosc [
+      ifelse([dc] of candidate) <= dc_kopulacja and dc <= dc_kopulacja[
+          fight
+      ][
+        if([sex] of candidate) = sex [ fight ]
+      ]
+    ]
+  ]
 end
 
 to fight
-  ;aggresive?
-  ;chance to win: dc > dc
+  let candidate one-of spiders-at 1 0
+  if candidate != nobody [
+    ifelse([dc] of candidate) > dc [
+      set health 0
+    ]
+    [
+      ask candidate [ set health 0 ]
+    ]
+  ]
 end
 
 to eat
+  let candidate one-of bugs-at 1 0
+  if candidate != nobody [
+    set energy energy + ([energy-value] of candidate)
+  ]
+end
+
+to reproduce
+  let candidate one-of spiders-at 1 0
+  if candidate != nobody [
+    if (([sex] of candidate) != sex) [
+      if([dc] of candidate) >= dc_kopulacja and dc >= dc_kopulacja[
+        create-cocoon
+      ]
+    ]
+  ]
+end
+
+to create-cocoon
+  hatch-targets 1 [
+    set color 6
+    set size 1
+  ]
 end
 
 to molting
@@ -77,30 +131,10 @@ end
 to create-nest
 end
 
-to is-eligible-for-cocoon
-  ;female, with some dc, after copulation, with nest
-  ; dc > dc_kopulacja
-  if sex = 1 [ create-cocoon ]
-end
-
-to create-cocoon
-  ;icon? new agent?
-end
-
-to reproduce
-  let candidate one-of spiders-at 1 0
-  if candidate != nobody [
-    if (([sex] of candidate) != sex) [
-      hatch-targets 1 [ set color 6
-      set size 1]
-    ]
-  ]
-
-end
 
 to death
   if energy < 0 [ die ]
-  if health < 0 [ die ]
+  if health <= 0 [ die ]
   ;male and old?
   ;random disease?
 end
@@ -108,13 +142,12 @@ end
 ;;Food behavior
 ;; need to be optimized
 to spawn-food
-  output-print food_rate
   if random-float 10 < food_rate [
     if count bugs < max_food [
       create-bugs 1 [
         set color 3
         set size 0.5
-        set energy-value random 10
+        set energy-value random 20
         set energy random 50
         setxy random-xcor random-ycor
       ]
@@ -126,7 +159,7 @@ to move-food
   rt random 50
   lt random 50
   fd 1
-  set energy energy - 10
+  set energy energy - 0.1
 end
 
 to death-food
@@ -161,10 +194,10 @@ ticks
 30.0
 
 TEXTBOX
-5
-10
-155
-28
+8
+15
+224
+34
 Parametry startowe
 11
 0.0
@@ -179,7 +212,7 @@ ilosc_samic
 ilosc_samic
 0
 20
-4.0
+16.0
 1
 1
 NIL
@@ -188,48 +221,48 @@ HORIZONTAL
 SLIDER
 123
 31
-228
-64
+233
+65
 ilosc_samcow
 ilosc_samcow
 0
 20
-5.0
+16.0
 1
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-7
-79
-157
-97
+9
+70
+228
+89
 Parametry rasy
 11
 0.0
 1
 
 SLIDER
-7
-102
-232
-135
+5
+86
+231
+120
 agresywnosc
 agresywnosc
 0
 100
-50.0
+5.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-7
-141
-233
-174
+5
+122
+231
+155
 kokon
 kokon
 0
@@ -241,30 +274,30 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-9
+7
+158
+230
 177
-159
-195
 Ilość nimf wyklutych z kokonu
 11
 0.0
 1
 
 TEXTBOX
-10
-318
-160
-336
-Warunki środowiskowe
+8
+235
+228
+254
+Parametry środowiskowe
 11
 0.0
 1
 
 SLIDER
-10
-334
-236
-367
+8
+250
+234
+283
 temperatura
 temperatura
 -30
@@ -276,10 +309,10 @@ C
 HORIZONTAL
 
 SLIDER
-10
-371
-235
-404
+8
+288
+233
+321
 wilgotnosc
 wilgotnosc
 0
@@ -336,45 +369,45 @@ count spiders
 11
 
 SLIDER
+6
+177
+116
+210
+max_dc
+max_dc
+0
+10
+8.0
+1
+1
+cm
+HORIZONTAL
+
+SLIDER
+121
+177
+232
+210
+dc_kopulacja
+dc_kopulacja
+0
+10
+7.0
+1
+1
+cm
+HORIZONTAL
+
+SLIDER
 8
-196
-118
-229
-max_dc
-max_dc
-0
-10
-10.0
-1
-1
-cm
-HORIZONTAL
-
-SLIDER
-123
-196
+325
 234
-229
-dc_kopulacja
-dc_kopulacja
-0
-10
-2.0
-1
-1
-cm
-HORIZONTAL
-
-SLIDER
-10
-409
-236
-442
+358
 food_rate
 food_rate
 0.0
 10.0
-10.0
+6.5
 0.5
 1
 NIL
@@ -402,19 +435,29 @@ count bugs
 11
 
 SLIDER
-10
-447
-235
-480
+8
+364
+233
+397
 max_food
 max_food
 0
 1000
-100.0
+62.0
 1
 1
 NIL
 HORIZONTAL
+
+TEXTBOX
+12
+400
+232
+428
+Zbyt duża ilość obiektów moze powodować spowolnienia
+11
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
