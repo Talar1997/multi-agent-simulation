@@ -1,20 +1,21 @@
 breed [spiders spider]
-spiders-own [ sex dc energy nestX nestY health ]
+spiders-own [ sex dc energy nest health last-molt]
 
 breed [bugs bug]
 bugs-own [ energy-value energy ]
 
-breed [targets target]
+breed [cocoons cocoon]
+cocoons-own [ tick-created ]
 
 ;;setup
 to setup
   clear-all
+  reset-ticks
   set-default-shape spiders "spider"
   set-default-shape bugs "bug"
-  set-default-shape targets "egg"
+  set-default-shape cocoons "egg"
   set-background
   spawn-spiders
-  reset-ticks
 end
 
 to set-background
@@ -32,7 +33,9 @@ to spawn-spiders
     set energy 100
     set health 100
     set sex 1
+    set nest false
     set dc max_dc
+    set last-molt ticks
   ]
   create-spiders ilosc_samcow [
     set color blue
@@ -40,33 +43,43 @@ to spawn-spiders
     set energy 100
     set health 100
     set sex 0
+    set nest false
     set dc max_dc
+    set last-molt ticks
   ]
 end
 
 
 ;;Tarantulas behavior
 to go
-  if not any? spiders [ stop ]
   spawn-food
   ask spiders
   [ move
     eat
     will-fight
     reproduce
+    make-nest
+    molting
     death ]
 
   ask bugs
   [ move-food
     death-food ]
+
+  ask cocoons
+  [ hatch-cocoon ]
   tick
 end
 
 to move
-  rt random 50
-  lt random 50
-  fd 1
-  set energy energy - 0.5
+  ifelse nest [
+    set energy energy - 0.1
+  ][
+    rt random 50
+    lt random 50
+    fd 1
+    set energy energy - 0.5
+  ]
 end
 
 ;walka zależna od parametru agresywnosc
@@ -108,8 +121,9 @@ end
 to reproduce
   let candidate one-of spiders-at 1 0
   if candidate != nobody [
-    if (([sex] of candidate) != sex) [
-      if([dc] of candidate) >= dc_kopulacja and dc >= dc_kopulacja[
+    if (([sex] of candidate) = 1 and sex = 0 and
+      ([nest] of candidate) = true) [
+        if([dc] of candidate) >= dc_kopulacja and dc >= dc_kopulacja[
         create-cocoon
       ]
     ]
@@ -117,26 +131,58 @@ to reproduce
 end
 
 to create-cocoon
-  hatch-targets 1 [
+  let candidate one-of spiders-at 1 0
+  hatch-cocoons 1 [
     set color 6
     set size 1
+    set tick-created ticks
+    setxy [pxcor] of candidate [pycor] of candidate
+  ]
+  ask candidate [ set energy energy / 1.5]
+end
+
+to hatch-cocoon
+  ask cocoons [
+    if ticks > tick-created + inkubacja_ticki [
+      hatch-spiders kokon [
+        setxy random-xcor random-ycor
+        set energy 30
+        set health 100
+        set sex random 2
+        ifelse sex = 1 [set color pink][set color blue]
+        set nest false
+        set dc 1
+        set size 0.5
+        set last-molt ticks
+      ]
+      die
+    ]
   ]
 end
 
 to molting
+  ask spiders [
+    if ticks > last-molt + wylinka_ticki [
+      set last-molt ticks
+      set dc dc + 1
+      set size size + 1
+    ]
+  ]
   ;dc++ - depends on energy
   ;take some ticks?
 end
-
-to create-nest
-end
-
 
 to death
   if energy < 0 [ die ]
   if health <= 0 [ die ]
   ;male and old?
   ;random disease?
+end
+
+to make-nest
+  if (pcolor = 32 and sex = 1) [
+    set nest true
+  ]
 end
 
 ;;Food behavior
@@ -164,6 +210,33 @@ end
 
 to death-food
   if energy < 0 [ die ]
+end
+
+;;Statistics
+to-report count-males
+  let counter 0
+  ask spiders [
+    if sex = 0 [set counter counter + 1]
+  ]
+  report counter
+end
+
+to-report count-females
+  let counter 0
+  ask spiders [
+    if sex = 1 [set counter counter + 1]
+  ]
+  report counter
+end
+
+to-report count-can-copulate
+  ;todo
+  report 1
+end
+
+to-report count-cannot-copulate
+  ;todo
+  report 1
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -222,7 +295,7 @@ SLIDER
 123
 31
 233
-65
+64
 ilosc_samcow
 ilosc_samcow
 0
@@ -247,12 +320,12 @@ SLIDER
 5
 86
 231
-120
+119
 agresywnosc
 agresywnosc
 0
 100
-5.0
+50.0
 1
 1
 NIL
@@ -265,9 +338,9 @@ SLIDER
 155
 kokon
 kokon
-0
-1000
-150.0
+1
+500
+5.0
 1
 1
 NIL
@@ -284,20 +357,20 @@ Ilość nimf wyklutych z kokonu
 1
 
 TEXTBOX
-8
-235
-228
-254
+9
+325
+229
+344
 Parametry środowiskowe
 11
 0.0
 1
 
 SLIDER
-8
-250
-234
-283
+9
+340
+235
+373
 temperatura
 temperatura
 -30
@@ -309,15 +382,15 @@ C
 HORIZONTAL
 
 SLIDER
-8
-288
-235
-322
+9
+378
+236
+411
 wilgotnosc
 wilgotnosc
 0
 100
-79.0
+77.0
 1
 1
 %
@@ -358,10 +431,10 @@ NIL
 1
 
 MONITOR
-746
-29
-806
-74
+736
+30
+834
+75
 Ptaszniki
 count spiders
 17
@@ -369,10 +442,10 @@ count spiders
 11
 
 SLIDER
-6
-177
-116
-210
+8
+282
+118
+315
 max_dc
 max_dc
 0
@@ -384,50 +457,50 @@ cm
 HORIZONTAL
 
 SLIDER
-121
-177
-232
-210
+123
+282
+234
+315
 dc_kopulacja
 dc_kopulacja
 0
 10
-7.0
+6.0
 1
 1
 cm
 HORIZONTAL
 
 SLIDER
-8
-325
-234
-358
+9
+415
+235
+448
 food_rate
 food_rate
 0.0
 10.0
-6.5
+9.5
 0.5
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-748
-10
-898
-28
+738
+12
+888
+30
 Monitor
 11
 0.0
 1
 
 MONITOR
-814
-29
-888
-74
+837
+30
+933
+75
 Pożywienie
 count bugs
 17
@@ -435,26 +508,120 @@ count bugs
 11
 
 SLIDER
-8
-364
-236
-398
+9
+454
+237
+487
 max_food
 max_food
 0
 1000
-62.0
+112.0
 1
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-12
-400
-232
-428
+13
+490
+233
+518
 Zbyt duża ilość obiektów moze powodować spowolnienia
+11
+0.0
+1
+
+SLIDER
+6
+172
+230
+205
+inkubacja_ticki
+inkubacja_ticki
+0
+5000
+700.0
+50
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+11
+212
+244
+255
+Ilość ticków potrzebnych do wyklucia kokonu
+11
+0.0
+1
+
+MONITOR
+838
+80
+933
+125
+Samce
+count-males
+17
+1
+11
+
+MONITOR
+736
+80
+834
+125
+Samice
+count-females
+17
+1
+11
+
+MONITOR
+736
+128
+835
+173
+Ptaszniki kopulacja
+1
+17
+1
+11
+
+MONITOR
+838
+128
+933
+173
+Ptaszniki nie-kopulacja
+1
+17
+1
+11
+
+SLIDER
+9
+229
+232
+263
+wylinka_ticki
+wylinka_ticki
+0
+2000
+100.0
+50
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+11
+265
+254
+294
+Ilość ticków potrzebnych do wylinki\n
 11
 0.0
 1
