@@ -718,18 +718,19 @@ Ptaszniki
 0.0
 200.0
 true
-true
+false
 "" ""
 PENS
-"males" 1.0 0 -13345367 true "" "plot count-males"
-"females" 1.0 0 -2064490 true "" "plot count-females"
+"default" 1.0 0 -13345367 true "" "plot count-males"
+"pen-1" 1.0 0 -2064490 true "" "plot count-females"
+"pen-2" 1.0 0 -7500403 true "" ""
 
 PLOT
 736
 298
 1036
 418
-Inkubowane kokony
+Aktywne kokony
 Czas
 Kokony
 0.0
