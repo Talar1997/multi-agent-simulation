@@ -113,10 +113,30 @@ Do rozwiązania zadania można wykorzystać środowisko Netlogo lub dowolne inne
 \section{Symulacja środowiska ptaszników}
 Wykonana w sprawozdaniu symulacja jest odwzorowaniem naturalnego środiwiska ptaszników z uwzględnieniem ich charakterystycznych zachowań. Ponadto, symulacja pozwala na zmianę wielu czynników wpływając na zachowania symulowanych obiektów.
 
-Rozdział zawiera opis zaimplementowanego modelu wieloagentowego, kod źródłowy z komentarzami oraz prezentację interfejsu użytkownika.
+Rozdział zawiera opis zaimplementowanego modelu wieloagentowego, kod źródłowy z komentarzami, prezentację interfejsu użytkownika oraz opis wyników symulacji.
 
 %Opis zaimplementowanego modelu
 \subsection{Opis modelu}
+Stworzony model obejmuje zagadnienia związane z przebiegiem cyklu życia ptasznika, lecz bez wskazania na konkretny gatunek. Użytkownik posiada możliwość zasymulowania według własnego zamysłu grupowej hodowli ptaszników. Projekt został zaimplementowany na podstawie poniższych zagadnień: 
+
+\begin{itemize}
+  \item Ptaszniki podzielone są na dwie płcie: samiec oraz samica,  
+  \item Przestrzeń, po której poruszają się ptaszniki zawiera miejsca wilgotne, a także suche, 
+  \item W miejscach wilgotnych samice oraz podrostki samców zakładają gniazda, mogę jednak je opuścić w poszukiwaniu innej lokalizacji, 
+  \item Na całym obszarze poruszają się owady karmowe, które służą jako pokarm dla populacji ptaszników, ich ilość jest regulowana, 
+  \item Mijający czas powoduje wzrost ptaszników odpowiednio wielkościowo dla płci (pajęczaki przechodzą tak zwaną wylinkę), a także powoduje śmierć u zwierząt ze względu na podeszły wiek, 
+  \item Okres oczekiwania na kolejną wylinkę ptasznika może być regulowany przez użytkownika systemu, 
+  \item Spotkanie dwóch ptaszników może doprowadzić do walki pomiędzy nimi, a w następstwie śmiercią jednego z nich, 
+  \item Dorosłe samce poruszają się po terytorium w poszukiwaniu samicy, w celu odbycia kopulacji, 
+  \item Kopulacja może skończyć się pozytywnym scenariuszem, wtedy samica po pewnym czasie może złożyć kokon. W najgorszym wypadku samica atakuje samca i go zjada, dzieje się tak w momencie gdy samica jest głodna lub wskaźnik agresji wśród populacji znajduje się na wysokim poziomie, 
+  \item Udana kopulacja nie zapewnia pewności stworzenia kokonu przez samicę, powodzenie gwarantuje odpowiedni parametr ustawiany przez użytkownika, 
+  \item Dojrzałość płciową reguluje się w systemie za pomocą parametru DC, w żargonie terrarystyki jest to długość ciała zwierzęcia,  
+  \item Złożenie kokonu odbiera samicy połowę maksymalnej energii, a opieka nad kokonem samica sprawuje do czasu jego otwarcia, 
+  \item Inkubacja kokonu trwa przez okres zdefiniowany przez użytkownika, 
+  \item Z otwierającego się kokonu wychodzi określona przez użytkownika ilość nimf (okres życia ptasznika po wylęgu), 
+  \item Warunki atmosferyczne (temperatura i wilgotność) mają wpływ na życie ptaszników oraz szansę otwarcia się kokonu, niekorzystne warunki powodują wymieranie populacji, 
+Wskaźniki numeryczne oraz wykresy wskazują parametry związane z ilością poszczególnych elementów w symulacji oraz ich zmiany w przeciągu interwałów czasowych. 
+\end{itemize}
 
 %Sources
 \subsection{Kod źródłowy symulatora}
