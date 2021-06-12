@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.10.1)  12 JUN 2021 11:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.10.1)  12 JUN 2021 18:00
 entering extended mode
 **./sprawozdanie.tex
 (sprawozdanie.tex
@@ -637,130 +637,140 @@ a-kªa-daj¡ gniazda,
 
 [3
 
-]
-Overfull \hbox (6.61803pt too wide) in paragraph at lines 146--147
+] (F:\Aplikacje\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+(F:\Aplikacje\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+) [4] [5]
+Overfull \hbox (6.61803pt too wide) in paragraph at lines 239--240
 \T1/cmr/m/n/10.95 Interfejs u»yt-kow-nika zo-staª przed-sta-wiony na ry-sunku 1
 [], wy-szcze-gól-ni¢ mo»na
  []
 
-<img/symulacja.PNG, id=23, 1174.3875pt x 584.1825pt>
+[6]
+<img/symulacja.PNG, id=36, 1174.3875pt x 584.1825pt>
 File: img/symulacja.PNG Graphic file (type png)
 <use img/symulacja.PNG>
-Package pdftex.def Info: img/symulacja.PNG  used on input line 155.
+Package pdftex.def Info: img/symulacja.PNG  used on input line 248.
 (pdftex.def)             Requested size: 360.0pt x 179.07124pt.
-[4]
-Overfull \hbox (11.78989pt too wide) in paragraph at lines 161--162
+
+Overfull \hbox (11.78989pt too wide) in paragraph at lines 254--255
 \T1/cmr/m/n/10.95 ra-me-try star-towe za-pre-zen-to-wane na ry-sunku 2[] (tj. \
 T1/cmr/m/it/10.95 ilosc_samic\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95 ilosc_samco
 w\T1/cmr/m/n/10.95 )
  []
 
-<img/parametry_startowe.PNG, id=28, 275.52937pt x 67.75313pt>
+<img/parametry_startowe.PNG, id=38, 275.52937pt x 67.75313pt>
 File: img/parametry_startowe.PNG Graphic file (type png)
 <use img/parametry_startowe.PNG>
-Package pdftex.def Info: img/parametry_startowe.PNG  used on input line 165.
+Package pdftex.def Info: img/parametry_startowe.PNG  used on input line 258.
 (pdftex.def)             Requested size: 180.0pt x 44.26437pt.
-<img/parametry_rasy.PNG, id=29, 267.24844pt x 287.57437pt>
+[7 <./img/symulacja.PNG> <./img/parametry_startowe.PNG>]
+<img/parametry_rasy.PNG, id=45, 267.24844pt x 287.57437pt>
 File: img/parametry_rasy.PNG Graphic file (type png)
 <use img/parametry_rasy.PNG>
-Package pdftex.def Info: img/parametry_rasy.PNG  used on input line 182.
+Package pdftex.def Info: img/parametry_rasy.PNG  used on input line 275.
 (pdftex.def)             Requested size: 180.0pt x 193.69623pt.
-[5 <./img/symulacja.PNG> <./img/parametry_startowe.PNG>]
-<img/parametry_env.PNG, id=36, 269.50688pt x 223.58531pt>
+<img/parametry_env.PNG, id=46, 269.50688pt x 223.58531pt>
 File: img/parametry_env.PNG Graphic file (type png)
 <use img/parametry_env.PNG>
-Package pdftex.def Info: img/parametry_env.PNG  used on input line 197.
+Package pdftex.def Info: img/parametry_env.PNG  used on input line 290.
 (pdftex.def)             Requested size: 180.0pt x 149.33055pt.
-<img/map.PNG, id=37, 353.82187pt x 384.6872pt>
+ [8 <./img/parametry_rasy.PNG>]
+<img/map.PNG, id=51, 353.82187pt x 384.6872pt>
 File: img/map.PNG Graphic file (type png)
 <use img/map.PNG>
-Package pdftex.def Info: img/map.PNG  used on input line 206.
+Package pdftex.def Info: img/map.PNG  used on input line 299.
 (pdftex.def)             Requested size: 270.0pt x 293.55687pt.
- [6 <./img/parametry_rasy.PNG> <./img/parametry_env.PNG>]
-<img/samica.PNG, id=44, 224.33812pt x 228.10219pt>
+<img/samica.PNG, id=52, 224.33812pt x 228.10219pt>
 File: img/samica.PNG Graphic file (type png)
 <use img/samica.PNG>
-Package pdftex.def Info: img/samica.PNG  used on input line 213.
+Package pdftex.def Info: img/samica.PNG  used on input line 306.
 (pdftex.def)             Requested size: 85.35826pt x 86.78761pt.
-<img/samiec.PNG, id=45, 223.58531pt x 224.33812pt>
+<img/samiec.PNG, id=53, 223.58531pt x 224.33812pt>
 File: img/samiec.PNG Graphic file (type png)
 <use img/samiec.PNG>
-Package pdftex.def Info: img/samiec.PNG  used on input line 215.
+Package pdftex.def Info: img/samiec.PNG  used on input line 308.
 (pdftex.def)             Requested size: 85.35826pt x 85.64645pt.
-<img/bug.PNG, id=46, 223.58531pt x 225.09094pt>
+ [9 <./img/parametry_env.PNG> <./img/map.PNG>]
+<img/bug.PNG, id=59, 223.58531pt x 225.09094pt>
 File: img/bug.PNG Graphic file (type png)
 <use img/bug.PNG>
-Package pdftex.def Info: img/bug.PNG  used on input line 222.
+Package pdftex.def Info: img/bug.PNG  used on input line 315.
 (pdftex.def)             Requested size: 85.35826pt x 85.93385pt.
-<img/egg.PNG, id=47, 222.8325pt x 222.8325pt>
+<img/egg.PNG, id=60, 222.8325pt x 222.8325pt>
 File: img/egg.PNG Graphic file (type png)
 <use img/egg.PNG>
-Package pdftex.def Info: img/egg.PNG  used on input line 224.
+Package pdftex.def Info: img/egg.PNG  used on input line 317.
 (pdftex.def)             Requested size: 85.35826pt x 85.35725pt.
- [7 <./img/map.PNG> <./img/samica.PNG> <./img/samiec.PNG>]
-<img/spider-params.PNG, id=55, 221.32687pt x 522.45187pt>
+<img/spider-params.PNG, id=61, 221.32687pt x 522.45187pt>
 File: img/spider-params.PNG Graphic file (type png)
 <use img/spider-params.PNG>
-Package pdftex.def Info: img/spider-params.PNG  used on input line 233.
+Package pdftex.def Info: img/spider-params.PNG  used on input line 326.
 (pdftex.def)             Requested size: 180.0pt x 424.92159pt.
- [8 <./img/bug.PNG> <./img/egg.PNG>]
-<img/monitor.PNG, id=61, 377.15906pt x 502.12593pt>
+ [10 <./img/samica.PNG> <./img/samiec.PNG> <./img/bug.PNG> <./img/egg.PNG>]
+<img/monitor.PNG, id=70, 377.15906pt x 502.12593pt>
 File: img/monitor.PNG Graphic file (type png)
 <use img/monitor.PNG>
-Package pdftex.def Info: img/monitor.PNG  used on input line 243.
+Package pdftex.def Info: img/monitor.PNG  used on input line 336.
 (pdftex.def)             Requested size: 180.0pt x 239.63858pt.
- [9 <./img/spider-params.PNG>]
-<img/monitor_danych.PNG, id=66, 350.81062pt x 184.43906pt>
+ [11 <./img/spider-params.PNG>]
+<img/monitor_danych.PNG, id=75, 350.81062pt x 184.43906pt>
 File: img/monitor_danych.PNG Graphic file (type png)
 <use img/monitor_danych.PNG>
-Package pdftex.def Info: img/monitor_danych.PNG  used on input line 252.
+Package pdftex.def Info: img/monitor_danych.PNG  used on input line 345.
 (pdftex.def)             Requested size: 180.0pt x 94.63678pt.
-<img/wykresy.PNG, id=67, 344.03531pt x 280.79906pt>
+<img/wykresy.PNG, id=76, 344.03531pt x 280.79906pt>
 File: img/wykresy.PNG Graphic file (type png)
 <use img/wykresy.PNG>
-Package pdftex.def Info: img/wykresy.PNG  used on input line 260.
+Package pdftex.def Info: img/wykresy.PNG  used on input line 353.
 (pdftex.def)             Requested size: 288.0011pt x 235.06409pt.
-[10 <./img/monitor.PNG> <./img/monitor_danych.PNG>] [11 <./img/wykresy.PNG>]
-(sprawozdanie.lof)
+ [12 <./img/monitor.PNG> <./img/monitor_danych.PNG>] [13 <./img/wykresy.PNG>] [
+14] [15] [16] [17] [18] [19] (sprawozdanie.lof)
 \tf@lof=\write4
 \openout4 = `sprawozdanie.lof'.
 
- [12
+ [20
 
-] (sprawozdanie.lot)
-\tf@lot=\write5
-\openout5 = `sprawozdanie.lot'.
+] (sprawozdanie.lol)
+\tf@lol=\write5
+\openout5 = `sprawozdanie.lol'.
 
- [13
 
-] [14
+[21
+
+] [22
 
 ] (sprawozdanie.aux) ) 
 Here is how much of TeX's memory you used:
- 9032 strings out of 481199
- 125638 string characters out of 2917216
- 375156 words of memory out of 3000000
- 24452 multiletter control sequences out of 15000+200000
- 552069 words of font info for 74 fonts, out of 3000000 for 9000
+ 9627 strings out of 481199
+ 131461 string characters out of 2917216
+ 695286 words of memory out of 3000000
+ 25038 multiletter control sequences out of 15000+200000
+ 553933 words of font info for 77 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,10n,49p,760b,401s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 48i,10n,53p,760b,1714s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX\fonts/pk/l
 jfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\Adam Talarczyk\AppData\Local\Mi
 KTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1095.pk> <C:\Users\Adam Talarczyk\A
-ppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\A
-dam Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.
+ppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\A
+dam Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.
 pk> <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/d
-pi600\ecrm1095.pk> <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfou
-r/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX
-\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Adam Talarczyk\AppDa
-ta\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Adam 
-Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk> 
+pi600\ecrm0600.pk> <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfou
+r/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX
+\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\Adam Talarczyk\AppDa
+ta\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\Adam 
+Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> 
 <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\ecrm2488.pk> <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfour/jk
-nappen/ec/dpi600\ecbx2488.pk>
-Output written on sprawozdanie.pdf (15 pages, 440762 bytes).
+0\ecbx1440.pk> <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX\fonts/pk/ljfour/jk
+nappen/ec/dpi600\ecrm1440.pk> <C:\Users\Adam Talarczyk\AppData\Local\MiKTeX\fon
+ts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk> <C:\Users\Adam Talarczyk\AppData\L
+ocal\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2488.pk> <C:\Users\Adam Tala
+rczyk\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk>
+Output written on sprawozdanie.pdf (23 pages, 488144 bytes).
 PDF statistics:
- 400 PDF objects out of 1000 (max. 8388607)
+ 508 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

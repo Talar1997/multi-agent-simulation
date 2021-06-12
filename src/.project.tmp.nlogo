@@ -9,7 +9,7 @@ cocoons-own [ tick-created ]
 
 globals [ maxsize-female maxsize-male ]
 
-;;Setup i inicjalizacja
+;;setup
 to setup
   clear-all
   reset-ticks
@@ -56,7 +56,7 @@ to spawn-spiders
 end
 
 
-;;Ptaszniki - zachowanie
+;;Tarantulas behavior
 to go
   if not any? spiders [ stop ]
   spawn-food
@@ -91,7 +91,10 @@ to move
   ]
 end
 
-;Walka
+;walka zależna od parametru agresywnosc
+;mają za mało DC do kopulacji - walczą
+;mają odpowiednio DC i są tej samej płci - walczą
+;są różnej płci ale samica jest głodna - walczą
 to will-fight
   let candidate one-of spiders-at 1 0
   if candidate != nobody [
@@ -191,11 +194,14 @@ to molting
 
     ]
   ]
+
 end
 
 to death
   if energy < 0 [ die ]
   if health <= 0 [ die ]
+  ;male and old?
+  ;random disease?
 end
 
 to make-nest
@@ -221,7 +227,8 @@ to male-wait-to-grow-up
   ]
 end
 
-;;Pozywienie - zachowanie
+;;Food behavior
+;; need to be optimized
 to spawn-food
   if random-float 10 < food_rate [
     if count bugs < max_food [
@@ -247,7 +254,7 @@ to death-food
   if energy < 0 [ die ]
 end
 
-;;Dane i statystyki
+;;Statistics
 to-report count-males
   let counter 0
   ask spiders [

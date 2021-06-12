@@ -139,7 +139,100 @@ Wskaźniki numeryczne oraz wykresy wskazują parametry związane z ilością pos
 \end{itemize}
 
 %Sources
-\subsection{Kod źródłowy symulatora}
+\subsection{Kod źródłowy symulatora- wybrane fragmenty}
+W tym rozdziale zostaną zaprezentowane kluczowe elementy kodu źródłowego symulacji. Podstawowym elementem symulacji są agenci, których implementacja jest zawarta w listingu \ref{lst:1}. 
+
+\begin{lstlisting}[language=HTML, caption=Implementacja agenta w środowisku NetLogo, label={lst:1}]
+breed [spiders spider]
+spiders-own [ sex dc energy nest health last-molt]
+\end{lstlisting}
+
+\noindent W linii pierwszej definiuje się agenta typu “spiders”, zaś linia druga określa parametry z nim związane.  
+
+W sekcji “setup” ustawiane są wartości związane z podstawowymi parametrami symulacji, szczegóły zostały zaprezentowane w listingu \ref{lst:2}. 
+
+\begin{lstlisting}[language=HTML, caption=Ustalanie podstawowych parametrów symulacji. , label={lst:2}]
+to setup
+  clear-all
+  reset-ticks
+  set-default-shape spiders "spider"
+  set-default-shape bugs "bug"
+  set-default-shape cocoons "egg"
+  set maxsize-female 1.1
+  set maxsize-male 0.95
+  set-background
+  spawn-spiders
+end
+\end{lstlisting}
+
+\noindent W linii 2 oraz 3 usuwane są wartości pochodzące z poprzedniego użycia symulacji, następnie (linia 4, 5, 6, 7 i 8) zostają ustalone kształty jakie zostają nadane poszczególnym agentom oraz nadania im maksymalnego rozmiaru. Stworzenie tła na podstawie zdefiniowanej procedury znajduje się w linii 9, zaś pojawienie się ptaszników uzależnione jest od wywołania w linii 10. 
+
+Zdefiniowanie podstawowych zmiennych związanych z ptasznikiem zawarte jest w listingu \ref{lst:3}, także tutaj znajduje się w linii 1 stworzenie według parametru, określonej liczby ptaszników: 
+
+\begin{lstlisting}[language=HTML, caption=Metoda odpowiadająca za tworzenie obiektu typu ``ptasznik samica''., label={lst:3}]
+create-spiders ilosc_samic [
+    set color pink
+    setxy random-xcor random-ycor
+    set energy 100
+    set health 100
+    set sex 1
+    set nest false
+    set dc max_dc
+    set last-molt ticks
+    set size maxsize-female
+  ]
+\end{lstlisting}
+
+Wykonywanie się poszczególnych funkcji jest uzależnione od zawarcia jej w sekcji “go”. W tym miejscy wykonuje się dla każdego z agentów określona procedura, która musi zostać do niego przypisana. W listingu \ref{lst:4} został pokazany przykład na podstawie symulacji.
+
+\begin{lstlisting}[language=HTML, caption= Sekcja ``go'' symulacji., label={lst:4}]
+to go
+  if not any? spiders [ stop ]
+  spawn-food
+  ask spiders
+  [ move
+    eat
+    will-fight
+    reproduce
+    make-nest
+    molting
+    male-wait-to-grow-up
+    random-disaster
+    death ]
+
+  ask bugs
+  [ move-food
+    death-food ]
+
+  ask cocoons
+  [ hatch-cocoon ]
+  tick
+end
+\end{lstlisting}
+
+\noindent Sekcja “go” (linia od 1 do 20) wykonuje się w momencie istnienia przynajmniej jednego ptasznika, potwierdza to kod znajdujący się w linii 2. W danym ticku (jednostka miary symulacji) wykonuje się dla obiektów symulacji szereg procedur (na podstawie ptasznika od linii 4 do 13), następnie proces przechodzi do kolejnego ticku (linia 19) i tym samym się zapętla przechodząc ponownie do linii 1.  
+
+Zachowanie agenta jest uzależnione od zaimplementowanej funkcji wywoływanej w procedurze “go”. Przykładowa zawartość takiego elementu znajduje się w listingu \ref{lst:5}.
+
+\begin{lstlisting}[language=HTML, caption= Przykładowa procedura ``reproduce'', label={lst:5}]
+to reproduce
+  let candidate one-of spiders-at 1 0
+  if candidate != nobody [
+    if (([sex] of candidate) = 1 and sex = 0 and
+      ([nest] of candidate) = true) [
+      if ([energy] of candidate < 50)[
+        set health 0
+        ask candidate [ set energy 100 ]
+      ]
+      if([dc] of candidate) >= dc_kopulacja and dc >= dc_kopulacja and health != 0[
+        create-cocoon
+      ]
+    ]
+  ]
+end
+\end{lstlisting}
+
+\noindent Linia 2 ładuje do zmiennej “candidate“ informacje na temat napotkanego agenta tego samego typu- spiders. W momencie gdy obiekt nie jest pusty (linia 3), sprawdza się warunek, czy dany ptasznik jest samcem a spotkany obiekt samicą, ulokowaną w swoim gnieździe (linia 4 i 5). Wartość “true” obliguje do weryfikacji parametru odpowiadającego za energię samicy, wartość mniejsza od 50 powoduje, że samiec zostaje zjedzony przez samicę, zyskując maksymalną ilość energii. W przeciwnym wypadku porównywana jest minimalna wielkość ptasznika zdolnego do kopulacji. Spełnienie warunku wywołuje procedurę “create-cocon”, odpowiedzialną za utworzenie kokonu przez samicę (linia 11). 
 
 %Interfejs
 \subsection{Interfejs użytkownika}
@@ -265,13 +358,306 @@ Wykresy przedstawiają w czasie rzeczywistym populację ptaszników z podziałem
 \subsection{Wyniki symulacji}
 Wyniki symulacji przedstawiane są w czesie rzeczywistym na monitorze danych. Wizualna reprezentacja przedstawiona jest na wykresach (rysunek \ref{fig:10}). Zauważyć można zależność, że populacja ptaszników rośnie i maleje co jakiś interwał. Wynika to z charakterystyki ich zachowania, samce żyją znacznie krócej od samic i umierają niedługo po wylince umożliwiającej im kopulację. Ilość ptaszników, które przeżywa zależna jest od ilości pożywienia, agresywności rasy i innych przypadkowych czynników. Podsumowując, tylko niewielka ilość ptaszników dożywa momentu, w którym jest zdolna do kopulacji. Mimo to, w symulacji występuje ciągłość- gatunek nie wymiera przy optymalnych parametrach.
 
+\subsection{Kod źródłowy- pełny}
+\begin{lstlisting}[language=HTML, caption=Pełny kod źródłowy, label={lst:full}]
+breed [spiders spider]
+spiders-own [ sex dc energy nest health last-molt]
+
+breed [bugs bug]
+bugs-own [ energy-value energy ]
+
+breed [cocoons cocoon]
+cocoons-own [ tick-created ]
+
+globals [ maxsize-female maxsize-male ]
+
+;;Setup i inicjalizacja
+to setup
+  clear-all
+  reset-ticks
+  set-default-shape spiders "spider"
+  set-default-shape bugs "bug"
+  set-default-shape cocoons "egg"
+  set maxsize-female 1.1
+  set maxsize-male 0.95
+  set-background
+  spawn-spiders
+end
+
+to set-background
+  ask patches [
+    if random-float 1000 < 500 [ set pcolor 31 ]
+    ifelse random-float 1000 > 500 [ set pcolor 32 ]
+    [ set pcolor 33 ]
+  ]
+end
+
+to spawn-spiders
+  create-spiders ilosc_samic [
+    set color pink
+    setxy random-xcor random-ycor
+    set energy 100
+    set health 100
+    set sex 1
+    set nest false
+    set dc max_dc
+    set last-molt ticks
+    set size maxsize-female
+  ]
+  create-spiders ilosc_samcow [
+    set color blue
+    setxy random-xcor random-ycor
+    set energy 100
+    set health 100
+    set sex 0
+    set nest false
+    set dc max_dc
+    set last-molt ticks
+    set size maxsize-male
+  ]
+end
+
+
+;;Ptaszniki - zachowanie
+to go
+  if not any? spiders [ stop ]
+  spawn-food
+  ask spiders
+  [ move
+    eat
+    will-fight
+    reproduce
+    make-nest
+    molting
+    male-wait-to-grow-up
+    random-disaster
+    death ]
+
+  ask bugs
+  [ move-food
+    death-food ]
+
+  ask cocoons
+  [ hatch-cocoon ]
+  tick
+end
+
+to move
+  ifelse nest [
+    set energy energy - 0.1
+  ][
+    rt random 50
+    lt random 50
+    fd 1
+    set energy energy - 0.5
+  ]
+end
+
+;Walka
+to will-fight
+  let candidate one-of spiders-at 1 0
+  if candidate != nobody [
+    if random 100 < agresywnosc [
+      ifelse([dc] of candidate) <= dc_kopulacja and dc <= dc_kopulacja[
+        fight
+      ][
+        if([sex] of candidate) = sex [ fight ]
+      ]
+    ]
+  ]
+end
+
+to fight
+  let candidate one-of spiders-at 1 0
+  if candidate != nobody [
+    ifelse([dc] of candidate) > dc [
+      set health 0
+    ]
+    [
+      ask candidate [ set health 0 ]
+    ]
+  ]
+end
+
+to eat
+  let candidate one-of bugs-at 1 0
+  if candidate != nobody [
+    if(energy < 100) [set energy energy + ([energy-value] of candidate)]
+  ]
+end
+
+to reproduce
+  let candidate one-of spiders-at 1 0
+  if candidate != nobody [
+    if (([sex] of candidate) = 1 and sex = 0 and
+      ([nest] of candidate) = true) [
+      if ([energy] of candidate < 50)[
+        set health 0
+        ask candidate [ set energy 100 ]
+      ]
+      if([dc] of candidate) >= dc_kopulacja and dc >= dc_kopulacja and health != 0[
+        create-cocoon
+      ]
+    ]
+  ]
+end
+
+to create-cocoon
+  let candidate one-of spiders-at 1 0
+  hatch-cocoons 1 [
+    set color 6
+    set size 1
+    set tick-created ticks
+    setxy [pxcor] of candidate [pycor] of candidate
+  ]
+  ask candidate [ set energy energy / 1.5]
+end
+
+to hatch-cocoon
+  ask cocoons [
+    if ticks > tick-created + inkubacja_ticki [
+      ifelse( temperatura > 20 and wilgotnosc > 50) [
+        hatch-spiders kokon [
+          setxy random-xcor random-ycor
+          set energy 30
+          set health 100
+          set sex random 2
+          ifelse sex = 1 [set color pink][set color blue]
+          set nest false
+          set dc 1
+          set size 0.5
+          set last-molt ticks
+        ]
+      ][die]
+
+      die
+    ]
+  ]
+end
+
+to molting
+  ask spiders [
+    if ticks > last-molt + wylinka_ticki [
+      set last-molt ticks
+
+      ifelse(sex = 0)[
+        ;male
+        ifelse(dc < max_dc) [set dc dc * 1.07][die]
+        if(size < maxsize-male) [set size size * 1.07]
+      ][
+        ;female
+        if(dc < max_dc) [set dc dc * 1.1]
+        if(size < maxsize-female) [set size size * 1.1]
+      ]
+      if( random 10000 > 9980 ) [die]
+
+    ]
+  ]
+end
+
+to death
+  if energy < 0 [ die ]
+  if health <= 0 [ die ]
+end
+
+to make-nest
+  if (pcolor = 32 and sex = 1 and random 1000 > 900) [
+    set nest true
+  ]
+end
+
+to random-disaster
+  let candidate one-of cocoons-at 0 0
+  if (random 1000 > 995 and sex = 1 and candidate = nobody) [set nest false]
+  if (random 1000 > 995 and sex = 0) [set nest false]
+end
+
+
+to male-wait-to-grow-up
+  if (sex = 0) [
+    ifelse dc < dc_kopulacja [
+      set nest true
+    ][
+      set nest false
+    ]
+  ]
+end
+
+;;Pozywienie - zachowanie
+to spawn-food
+  if random-float 10 < food_rate [
+    if count bugs < max_food [
+      create-bugs 1 [
+        set color 3
+        set size 0.5
+        set energy-value random 20
+        set energy random 50
+        setxy random-xcor random-ycor
+      ]
+    ]
+  ]
+end
+
+to move-food
+  rt random 50
+  lt random 50
+  fd 1
+  set energy energy - 0.1
+end
+
+to death-food
+  if energy < 0 [ die ]
+end
+
+;;Dane i statystyki
+to-report count-males
+  let counter 0
+  ask spiders [
+    if sex = 0 [set counter counter + 1]
+  ]
+  report counter
+end
+
+to-report count-females
+  let counter 0
+  ask spiders [
+    if sex = 1 [set counter counter + 1]
+  ]
+  report counter
+end
+
+to-report count-can-copulate
+  let counter 0
+  ask spiders [
+    if (dc >= dc_kopulacja) [set counter counter + 1]
+  ]
+  report counter
+end
+
+to-report count-cannot-copulate
+  let counter 0
+  ask spiders [
+    if (dc < dc_kopulacja) [set counter counter + 1]
+  ]
+  report counter
+end
+
+to-report count-spiders-without-nest
+  let counter 0
+  ask spiders [
+    if (nest = false) [set counter counter + 1]
+  ]
+  report counter
+end
+\end{lstlisting}
+
 \newpage
 \addcontentsline{toc}{section}{Spis rysunków}
 \listoffigures
 \newpage
 
-\addcontentsline{toc}{section}{Tabele}
-\listoftables
+\addcontentsline{toc}{section}{Listingi}
+\lstlistoflistings
 
 \begin{thebibliography}{5}
 \addcontentsline{toc}{section}{Bibliografia}
