@@ -1,2 +1,10 @@
 \babel@toc {polish}{}
 \contentsline {section}{\numberline {1}Zadanie 1}{2}%
+\contentsline {section}{\numberline {2}Symulacja środowiska ptaszników}{3}%
+\contentsline {subsection}{\numberline {2.1}Opis modelu}{3}%
+\contentsline {subsection}{\numberline {2.2}Kod źródłowy symulatora}{3}%
+\contentsline {subsection}{\numberline {2.3}Interfejs użytkownika}{3}%
+\contentsline {subsection}{\numberline {2.4}Wyniki symulacji}{10}%
+\contentsline {section}{Spis rysunków}{11}%
+\contentsline {section}{Tabele}{12}%
+\contentsline {section}{Bibliografia}{13}%

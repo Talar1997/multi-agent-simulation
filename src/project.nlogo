@@ -337,7 +337,7 @@ SLIDER
 9
 31
 119
-65
+64
 ilosc_samic
 ilosc_samic
 0
@@ -377,12 +377,12 @@ SLIDER
 8
 86
 232
-120
+119
 agresywnosc
 agresywnosc
 0
 100
-8.0
+14.0
 1
 1
 NIL
@@ -392,7 +392,7 @@ SLIDER
 9
 122
 232
-156
+155
 kokon
 kokon
 1
@@ -427,12 +427,12 @@ SLIDER
 10
 340
 236
-374
+373
 temperatura
 temperatura
 -30
 60
-27.0
+28.0
 1
 1
 C
@@ -442,7 +442,7 @@ SLIDER
 10
 378
 238
-412
+411
 wilgotnosc
 wilgotnosc
 0
@@ -502,7 +502,7 @@ SLIDER
 8
 282
 118
-316
+315
 max_dc
 max_dc
 0
@@ -532,12 +532,12 @@ SLIDER
 10
 416
 236
-450
+449
 food_rate
 food_rate
 0.0
 10.0
-5.5
+7.5
 0.5
 1
 NIL
@@ -568,7 +568,7 @@ SLIDER
 10
 454
 238
-488
+487
 max_food
 max_food
 0
@@ -593,7 +593,7 @@ SLIDER
 9
 172
 231
-206
+205
 inkubacja_ticki
 inkubacja_ticki
 0
@@ -640,7 +640,7 @@ MONITOR
 736
 128
 834
-174
+173
 Ptaszniki zdolne do kopulacji
 count-can-copulate
 17
@@ -651,7 +651,7 @@ MONITOR
 838
 128
 934
-174
+173
 Ptaszniki nie zdolne do kopulacji
 count-cannot-copulate
 17
@@ -662,7 +662,7 @@ SLIDER
 10
 230
 234
-264
+263
 wylinka_ticki
 wylinka_ticki
 0
@@ -687,7 +687,7 @@ MONITOR
 936
 80
 1033
-126
+125
 Aktywne kokony
 count cocoons
 17
@@ -698,7 +698,7 @@ MONITOR
 936
 30
 1033
-76
+75
 Ptaszniki bez gniazda
 count-spiders-without-nest
 17
